@@ -9,9 +9,19 @@ import SwiftUI
 
 @main
 struct QuickBitesApp: App {
+    @StateObject private var session = SessionManager()
+    @StateObject private var settings = AppSettings()
+
     var body: some Scene {
         WindowGroup {
-            AuthView()
+            ContentView()
+                .environmentObject(session)
+                .environmentObject(settings)
+                .environment(
+                    \.locale,
+                    Locale(identifier: settings.language.rawValue)
+                )
+                .preferredColorScheme(.dark)
         }
     }
 }
